@@ -12,14 +12,14 @@ $xml = simplexml_load_file($force_url);
 $number_of_jobs = count($xml->channel->item);
 /*---------------Setting Local Variables---------------*/
 
-if (isset($_POST['search_location']) ) {
-  $u_location = $_POST['search_location'];
+if (isset($_GET['loc']) ) {
+  $u_location = $_GET['loc'];
 }
-if (isset($_POST['search_category']) ) {
-  $u_category = $_POST['search_category'];
+if (isset($_GET['cat']) ) {
+  $u_category = $_GET['cat'];
 }
-if (isset($_POST['search_bar']) ) {
-  $u_keywords = $_POST['search_bar'];
+if (isset($_GET['q']) ) {
+  $u_keywords = $_GET['q'];
 }
 if (isset($_GET['jobtitle'])) {
   $u_keywords = $_GET['jobtitle'];
@@ -54,13 +54,16 @@ function add_result($input) {
     return;
   }
   $result = "
+  <a href='job-details/$input[url]/$input[country]/$input[jnum]'>
   <div class='box-result box-search-results'>
   <h3 class='col-md-6 col-lg-6'>$input[title]</h3>
   <h4 class='col-md-2 col-lg-2'>$input[location]</h4>
   <h4 class='col-md-3 col-lg-3'>$input[payment]</h4>
-  <a class='btn btn-warning flat-corners col-md-1 col-lg-1 col-xs-12 col-sm-12' href='job-details/$input[url]/$input[country]/$input[jnum]'><h4>Apply</h4></a>
+  <span class='btn btn-warning flat-corners col-md-1 col-lg-1 col-xs-12 col-sm-12'><h4>Apply</h4></span>
   <br /> <br />
-  </div>";
+  </div>
+  </a>";
+  //<a class='btn btn-warning flat-corners col-md-1 col-lg-1 col-xs-12 col-sm-12' href='job-details/$input[url]/$input[country]/$input[jnum]'><h4>Apply</h4></a>
   $results .= $result;
   $result_count += 1;
 }
